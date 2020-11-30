@@ -11,7 +11,8 @@
 ![platform](https://img.shields.io/badge/platform-Docker-3285a8)
 ![version](https://img.shields.io/badge/version-3.5-ff7300)
 
-Author: [luca-lc][2]
+Author: [luca-lc][2]{:target="_blank"}
+
 
 ### Introduction
 
