@@ -1,0 +1,1 @@
+Before build the image set the usersnames and passwords into `conf/configFile.conf` and usernames into `conf/vsftpd.userlist`
