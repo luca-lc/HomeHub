@@ -25,7 +25,7 @@ PiNe provides a containerized system to put some web services online. PiNe is al
 
 PiNe containes
 - <u>[FTPiNe](#FTPiNe)</u>: a File Transfer Protocol server
-- <u><a href="plex.tv" target="_blank">Plex</a></u>: a Media Server
+- <u><a href="https://plex.tv" target="_blank">Plex</a></u>: a Media Server
 - <u>[PiNeBox](#PiNeBox)</u>: a cloud service
 - <u>PiNeSites</u>: a hosting for sites building, testing and presentation
 - <u>PiNeSQL</u>: a relational DBMS
