@@ -25,7 +25,7 @@ PiNe provides a containerized system to put some web services online. PiNe is al
 
 PiNe containes
 - <u>[FTPiNe](#FTPiNe)</u>: a File Transfer Protocol server
-- <u><a href="https://plex.tv" target="_blank">Plex</a></u>: a Media Server
+- <u>[Plex][3]</a></u>: a Media Server
 - <u>[PiNeBox](#PiNeBox)</u>: a cloud service
 - <u>PiNeSites</u>: a hosting for sites building, testing and presentation
 - <u>PiNeSQL</u>: a relational DBMS
@@ -39,8 +39,8 @@ Into the `vsftpd` configuration file, called `vsftpd.conf`, are setted the envir
 Instead, into the `configFile.conf` there are the users name and users password signed up at the service
 Into the `vsftpd.userlist` there are the list of the users allowed to access.
 
-#### _Plex_
+<!-- #### _Plex_
 TODO
 
-#### _PiNeBox_
+#### _PiNeBox_ -->
 
