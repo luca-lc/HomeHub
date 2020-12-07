@@ -25,10 +25,10 @@ PiNe provides a containerized system to put some web services online. PiNe is al
 
 PiNe containes
 - <u>[FTPiNe](#FTPiNe)</u>: a File Transfer Protocol server
-- <u>[Plex][3]</a></u>: a Media Server
+- <u>[Plex*][3]</a></u>: a Media Server
 - <u>[PiNeBox](#PiNeBox)</u>: a cloud service
-- <u>PiNeSites</u>: a hosting for sites building, testing and presentation
-- <u>PiNeSQL</u>: a relational DBMS
+- <u>[PiNeSites](#PiNeSites)</u>: a hosting for sites building, testing and presentation
+- <u>[PiNeSQL](#PiNeSQL)</u>: a relational DBMS
 
 All containers are accessible using a ReverseProxy.
 
@@ -44,3 +44,7 @@ TODO
 
 #### _PiNeBox_ -->
 
+---
+<p class="footer">
+(*) External link
+</p>
