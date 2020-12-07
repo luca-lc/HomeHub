@@ -1,3 +1,5 @@
+<link rel="stylesheet" type="text/css" media="all" href="assets/style.css" />
+
 [1]: https://www.docker.com/
 [2]: https://luca-lc.github.io/
 [3]: https://plex.tv/ 
@@ -11,7 +13,7 @@
 ![platform](https://img.shields.io/badge/platform-Docker-3285a8)
 ![version](https://img.shields.io/badge/version-3.5-ff7300)
 
-Author: [luca-lc][2]
+<p class="author">Author: <a href="https://luca-lc.github.io/">luca-lc</a></p>
 
 
 ## Introduction
@@ -22,21 +24,23 @@ PiNe provides a containerized system to put some web services online. PiNe is al
 ### Description
 
 PiNe containes
-- FTPiNe: a File Transfer Protocol server
-- [Plex][3]: a Media Server
-- PiNeBox: a cloud service
-- PiNeSites: a hosting for sites building, testing and presentation
-- PiNeSQL: a relational DBMS
+- <u>[FTPiNe](#FTPiNe)</u>: a File Transfer Protocol server
+- <u>[Plex][3]</u>: a Media Server
+- <u>[PiNeBox](#PiNeBox)</u>: a cloud service
+- <u>PiNeSites</u>: a hosting for sites building, testing and presentation
+- <u>PiNeSQL</u>: a relational DBMS
 
 All containers are accessible using a ReverseProxy.
 
 #### _FTPiNe_
-<!-- must end bash configuration script -->
-<!-- This is a FTP server based on `vsftpd`. It can configured using its file where there are all enviroments variables. Moreover, it has a list of allowed logged-in user. -->
-TODO
+
+The server FTP is based on `vsftpd` engine. At the building image, the system copies the configuration files and the configuration script into the image.
+Into the `vsftpd` configuration file, called `vsftpd.conf`, are setted the environment variables, like the writting permissions, users list and `chroot` to restrict users to thier home directory.
+Instead, into the `configFile.conf` there are the users name and users password signed up at the service
+Into the `vsftpd.userlist` there are the list of the users allowed to access.
 
 #### _Plex_
 TODO
 
-#### PiNeBox
+#### _PiNeBox_
 
