@@ -1,0 +1,91 @@
+version: '3.4'
+
+services:
+  sites:
+    build: ./PiNeSites
+    image: luca/PiNeSites:latest
+    restart: always
+    depends_on:
+      - sql
+    volumes:
+      - ./sites:/var/www/html
+      - ./apache/shared:/tmp/shared
+    hostname: webls
+    networks: 
+      frontend:
+        ipv4_address: 10.24.1.10
+      backend:
+    ports: 
+      - "8080:80"
+
+  # gogs:
+  #   image: gogs/gogs:latest
+  #   restart: always
+  #   depends_on: 
+  #     - mysql
+  #   volumes: 
+  #     - ./gogs/data:/data 
+  #     - ./gogs:/data/gogs
+  #   hostname: gitls
+  #   networks:
+  #     frontend:
+  #       ipv4_address: 10.24.1.11
+  #     backend:
+  #   ports:  
+  #     - "2022:22"
+  #     - "8081:3000"
+
+  sql:
+    image: luca/PiNeSQL:latest
+    build: ./PiNeSQL
+    restart: always
+    volumes: 
+      - mariadb:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=${ROOT_PSWD}
+      - MYSQL_USER=${USR}
+      - MYSQL_PASSWORD=${PSWD}
+    hostname: dbls  
+    networks: 
+      frontend:
+
+  box:
+    image: luca/PiNeBox:latest
+    build: ./PiNeBox
+    restart: always
+    depends_on: 
+      - sql
+    volumes:
+      - ./site/nextcloud:/var/www/html
+    hostname: cloudls
+    networks: 
+      frontend:
+        ipv4_address: 10.24.1.13
+      backend:
+    ports: 
+      - "8082:80"
+
+  nginx:
+    image: luca/nginx:latest
+    build: ./nginx
+    depends_on: 
+      - apache
+      - gogs
+      - mysql
+      - nextcloud      
+    # volumes: 
+    #   - ./nginx/conf/:/etc/nginx/
+    network_mode: host
+
+
+volumes:
+  mariadb:
+
+networks: 
+  backend:
+    driver: bridge
+  frontend:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.24.1.0/26
