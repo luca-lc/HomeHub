@@ -24,20 +24,33 @@ PiNe provides a containerized system to put some web services online. PiNe is al
 ### Description
 
 PiNe containes
+- <u>[PiNeSQL](#PiNeSQL)</u>: a relational DBMS
 - <u>[FTPiNe](#FTPiNe)</u>: a File Transfer Protocol server
 - <u>[Plex*][3]</a></u>: a Media Server
 - <u>[PiNeBox](#PiNeBox)</u>: a cloud service
 - <u>[PiNeSites](#PiNeSites)</u>: a hosting for sites building, testing and presentation
-- <u>[PiNeSQL](#PiNeSQL)</u>: a relational DBMS
 
-All containers are accessible using a ReverseProxy.
+All containers based on `HTTP` protocol are accessible using a ReverseProxy over SSL encryption but without registered certificate by CA.
+
+<br/><br/>
+
+#### _PiNeSQL_
+
+PiNeSQL is a relational database management system based on `mariadb` engine. PiNeSQL is used by all others services communicating through underlying network provided by the docker engine, in this way all communications stay into the system and aren't visible from outside. <br/>
+At image building time, the system uses the root password and the new user credential saved in the `.env` file. This file has to be created before to run the building process using this syntax:
+```
+ROOT_PSWD=<root password>
+USR=<new username>
+PSWD=<`USR` password>
+```
+
 
 #### _FTPiNe_
 
-The server FTP is based on `vsftpd` engine. At the building image, the system copies the configuration files and the configuration script into the image.
-Into the `vsftpd` configuration file, called `vsftpd.conf`, are setted the environment variables, like the writting permissions, users list and `chroot` to restrict users to thier home directory.
-Instead, into the `configFile.conf` there are the users name and users password signed up at the service
-Into the `vsftpd.userlist` there are the list of the users allowed to access.
+The server FTP is based on `vsftpd` engine. At the image building time, the system copies the configuration files and the configuration script into the image.<br/>
+Into the `vsftpd` configuration file, called `vsftpd.conf`, are setted the environment variables, like the writting permissions, users list and `chroot` to restrict users to thier home directory.<br/>
+Instead, into the `configFile.conf` there are the users name and users password required to configure the entire system using the script `config.sh`.<br/>
+Into the `vsftpd.userlist` there is the list of the signup users with the permissions to loggedin.
 
 <!-- #### _Plex_
 TODO
