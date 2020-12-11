@@ -8,8 +8,8 @@ services:
     depends_on:
       - sql
     volumes:
-      - ./sites:/var/www/html
-      - ./apache/shared:/tmp/shared
+      -
+      -
     hostname: webls
     networks: 
       frontend:
@@ -60,7 +60,7 @@ services:
     hostname: cloudls
     networks: 
       frontend:
-        ipv4_address: 10.24.1.13
+        ipv4_address: 10.24.1.21
       backend:
     ports: 
       - "8082:80"
@@ -76,6 +76,20 @@ services:
     # volumes: 
     #   - ./nginx/conf/:/etc/nginx/
     network_mode: host
+
+  ftp:
+    image: luca/ftp:latest
+    build: ./FTPiNe
+    volumes:
+      - FTPiNe/files:/home/test
+    hostname: ftpls
+    networks: 
+      frontend:
+        ipv4_address: 10.24.1.32
+      backend:
+    ports: 
+      - 21:21
+      - 20:20
 
 
 volumes:
