@@ -1,14 +1,12 @@
-version: '3.4'
+# version: '3.4'
 
-services:
-  ftp:
-    build: ./
-    image: luca/ftp:latest
-    ports: 
-      - 21:21
-      - 20:20
-    volumes:
-      - ./files/guest/:/home/lsuftp
-      - ./files/camsAlarms/:/home/cams/
-    hostname: ftpls
-    network_mode: host
+# services:
+#   ftp:
+#     build: ./
+#     image: luca/ftp:latest
+#     ports: 
+#       - 21:21
+#       - 20:20
+#     volumes:
+#     hostname: ftpls
+#     network_mode: host
