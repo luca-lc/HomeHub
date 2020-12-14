@@ -23,7 +23,7 @@
 
 ### Description
 
-HomeHbu containes
+HomeHub containes
 - <u>[SQLHub](#SQLHub)</u>: a relational DBMS
 - <u>[FTPHub](#FTPHub)</u>: a File Transfer Protocol server
 - <u>[Plex*][3]</a></u>: a Media Server
@@ -47,10 +47,10 @@ PSWD=<`USR` password>
 
 #### _FTPHub_
 
-The server FTP is based on `vsftpd` engine. At the image building time, the system copies the configuration files and the configuration script into the image.<br/>
-Into the `vsftpd` configuration file, called `vsftpd.conf`, are setted the environment variables, like the writting permissions, users list and `chroot` to restrict users to thier home directory.<br/>
-Instead, into the `configFile.conf` there are the users name and users password required to configure the entire system using the script `config.sh`.<br/>
-Into the `vsftpd.userlist` there is the list of the signup users with the permissions to loggedin.
+The FTP server is based on `vsftpd` engine. At the image building time, the system copies the configuration files and the configuration script into the image.<br/>
+Into `vsftpd.conf` configuration file are setted the environment variables, like the write permissions, users list and `chroot` to restrict users to thier home directory.<br/>
+Instead, into the `configFile.conf` there are the users name and users password required to configure the entire system through `config.sh` script.<br/>
+In the `vsftpd.userlist` there is a list of registered users with access permissions.
 
 
 ---
