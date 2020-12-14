@@ -18,7 +18,7 @@
 
 ## Introduction
 
-*HomeHub* provides a containerized system to put some web services online. HomeHub is also a simple way to keep the entire system updated, maintained and isolated from underlying system. Using HomeHub is also usefull to keep each contaier isolated for others, in this way if a fault is rised in one of them, the others continue to run. The system is based on the [Docker-CE][1] engine from a maintainer idea after struggling with the same services hosted directetly on the OS.
+*HomeHub* provides a containerized system to put some web services online. HomeHub is also a simple way to keep the entire system updated, maintained and isolated from underlying machine. Using HomeHub is also usefull to keep each contaier isolated for others, in this way if a fault is rised in one of them, the others continue to run. The system is based on the [Docker-CE][1] engine from a maintainer idea after struggling with the same services hosted directetly on the OS.
 
 
 ### Description
