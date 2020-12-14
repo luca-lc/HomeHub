@@ -8,10 +8,10 @@
 <img src="./assets/img/HomeHub.png" width="300" align="right"/> 
 
 #### Containerized online services 
-![build](https://img.shields.io/badge/build-inTest-ff3030)
-![status](https://img.shields.io/badge/status-Debug-yellow)
+![build](https://img.shields.io/badge/build-ContinuousIntegration-ff3030)
+![status](https://img.shields.io/badge/status-Development-yellow)
 ![platform](https://img.shields.io/badge/platform-Docker-3285a8)
-![version](https://img.shields.io/badge/version-3.5-ff7300)
+![version](https://img.shields.io/badge/version-alpha4-ff7300)
 
 <p class="author">Author: <a href="https://luca-lc.github.io/">luca-lc</a></p>
 
