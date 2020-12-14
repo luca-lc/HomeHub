@@ -1,0 +1,2 @@
+Before to build the image set the usersnames and passwords into `conf/configFile.conf` and usernames into `conf/vsftpd.userlist`
+and set the volumes to sharing with host machine (volumes used to save the files into a bigger space).

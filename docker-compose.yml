@@ -2,15 +2,15 @@ version: '3.4'
 
 services:
   sites:
-    build: ./PiNeSites
-    image: luca/PiNeSites:latest
+    build: ./hosthub
+    image: luca/HostHub:latest
     restart: always
     depends_on:
       - sql
     volumes:
       -
       -
-    hostname: webls
+    hostname: hosthub
     networks: 
       frontend:
         ipv4_address: 10.24.1.10
@@ -36,8 +36,8 @@ services:
   #     - "8081:3000"
 
   sql:
-    image: luca/PiNeSQL:latest
-    build: ./PiNeSQL
+    image: luca/sqlhub:latest
+    build: ./SQLHub
     restart: always
     volumes: 
       - mariadb:/var/lib/mysql
@@ -45,19 +45,19 @@ services:
       - MYSQL_ROOT_PASSWORD=${ROOT_PSWD}
       - MYSQL_USER=${USR}
       - MYSQL_PASSWORD=${PSWD}
-    hostname: dbls  
+    hostname: sqlhub  
     networks: 
       frontend:
 
   box:
-    image: luca/PiNeBox:latest
-    build: ./PiNeBox
+    image: luca/boxhub:latest
+    build: ./BoxHub
     restart: always
     depends_on: 
       - sql
     volumes:
-      - ./site/nextcloud:/var/www/html
-    hostname: cloudls
+      - 
+    hostname: boxhub
     networks: 
       frontend:
         ipv4_address: 10.24.1.21
@@ -78,11 +78,11 @@ services:
     network_mode: host
 
   ftp:
-    image: luca/ftp:latest
-    build: ./FTPiNe
+    image: luca/ftphub:latest
+    build: ./FTPHub
     volumes:
-      - FTPiNe/files:/home/test
-    hostname: ftpls
+      - 
+    hostname: ftphub
     networks: 
       frontend:
         ipv4_address: 10.24.1.32
