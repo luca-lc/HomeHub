@@ -27,8 +27,8 @@ HomeHbu containes
 - <u>[SQLHub](#SQLHub)</u>: a relational DBMS
 - <u>[FTPHub](#FTPHub)</u>: a File Transfer Protocol server
 - <u>[Plex*][3]</a></u>: a Media Server
-- <u>[BoxHub](#PiNeBox)</u>: a cloud service
-- <u>[HostHub](#PiNeSites)</u>: a hosting for sites building, testing and presentation
+- <u>[BoxHub](#BoxHub)</u>: a cloud service
+- <u>[HostHub](#HostHub)</u>: a hosting for sites building, testing and presentation
 
 All containers based on `HTTP` protocol are accessible using a ReverseProxy over SSL encryption but without registered certificate by CA.
 
@@ -36,7 +36,7 @@ All containers based on `HTTP` protocol are accessible using a ReverseProxy over
 
 #### _SQLHub_
 
-PiNeSQL is a relational database management system based on `mariadb` engine. PiNeSQL is used by all others services communicating through underlying network provided by the docker engine, in this way all communications stay into the system and aren't visible from outside. <br/>
+SQLHub is a relational database management system based on `mariadb` engine. SQLHub is used by all others services communicating through underlying network provided by the docker engine, in this way all communications stay into the system and aren't visible from outside. <br/>
 At image building time, the system uses the root password and the new user credential saved in the `.env` file. This file has to be created before to run the building process using this syntax:
 ```
 ROOT_PSWD=<root password>
@@ -52,10 +52,6 @@ Into the `vsftpd` configuration file, called `vsftpd.conf`, are setted the envir
 Instead, into the `configFile.conf` there are the users name and users password required to configure the entire system using the script `config.sh`.<br/>
 Into the `vsftpd.userlist` there is the list of the signup users with the permissions to loggedin.
 
-<!-- #### _Plex_
-TODO
-
-#### _PiNeBox_ -->
 
 ---
 <p class="footer">
