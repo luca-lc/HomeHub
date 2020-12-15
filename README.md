@@ -52,6 +52,10 @@ Into `vsftpd.conf` configuration file are setted the environment variables, like
 Instead, into the `configFile.conf` there are the users name and users password required to configure the entire system through `config.sh` script.<br/>
 In the `vsftpd.userlist` there is a list of registered users with access permissions.
 
+#### _BoxHub_
+
+
+#### _HostHub_
 
 ---
 <p class="footer">
