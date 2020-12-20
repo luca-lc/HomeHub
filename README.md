@@ -18,7 +18,7 @@
 
 ## Introduction
 
-*HomeHub* provides a containerized system to put some web services online. HomeHub is also a simple way to keep the entire system updated, maintained and isolated from underlying machine. Using HomeHub is also usefull to keep each contaier isolated for others, in this way if a fault is rised in one of them, the others continue to run. The system is based on the [Docker-CE*][1] engine.
+*HomeHub* provides a containerized system to put some web services online. HomeHub is also a simple way to keep the entire system updated, maintained and isolated from underlying machine. Using HomeHub is also usefull to keep each container isolated for others, in this way if a fault is rised in one of them, the others continue to run. The system is based on the [Docker-CE*][1] engine.
 
 
 ### Description
@@ -36,8 +36,8 @@ All containers based on `HTTP` protocol are accessible using a ReverseProxy over
 
 #### _SQLHub_
 
-SQLHub is a relational database management system based on `mariadb` engine. SQLHub is used by all others services communicating through underlying network provided by the docker engine, in this way all communications stay into the system and aren't visible from outside. <br/>
-At image building time, the system uses the root password and the new user credential saved in the `.env` file. This file has to be created before to run the building process using this syntax:
+SQLHub is a relational database management system based on `mariadb` engine. SQLHub is used by all others services communicating through underlying network provided by the docker engine, in this way all communications stay into the system and are not visible from outside. <br/>
+At image building time, the system uses the root password and the new user credential saved in the `.env` file. This file has to be created before to runs the building process using this syntax:
 ```
 ROOT_PSWD=<root password>
 USR=<new username>
