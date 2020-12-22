@@ -1,15 +1,14 @@
 version: '3.4'
 
 services:
-  sites:
-    build: ./hosthub
-    image: luca/HostHub:latest
+  host:
+    build: ./HostHub
+    image: luca/hosthub:latest
     restart: always
     depends_on:
       - sql
-    volumes:
-      -
-      -
+    # volumes:
+    #   - /home/luca/Template:/var/www
     hostname: hosthub
     networks: 
       frontend:
@@ -18,26 +17,9 @@ services:
     ports: 
       - "8080:80"
 
-  # gogs:
-  #   image: gogs/gogs:latest
-  #   restart: always
-  #   depends_on: 
-  #     - mysql
-  #   volumes: 
-  #     - ./gogs/data:/data 
-  #     - ./gogs:/data/gogs
-  #   hostname: gitls
-  #   networks:
-  #     frontend:
-  #       ipv4_address: 10.24.1.11
-  #     backend:
-  #   ports:  
-  #     - "2022:22"
-  #     - "8081:3000"
-
   sql:
-    image: luca/sqlhub:latest
     build: ./SQLHub
+    image: luca/sqlhub:latest
     restart: always
     volumes: 
       - mariadb:/var/lib/mysql
@@ -49,47 +31,39 @@ services:
     networks: 
       frontend:
 
-  box:
-    image: luca/boxhub:latest
-    build: ./BoxHub
-    restart: always
-    depends_on: 
-      - sql
-    volumes:
-      - 
-    hostname: boxhub
-    networks: 
-      frontend:
-        ipv4_address: 10.24.1.21
-      backend:
-    ports: 
-      - "8082:80"
+  # box:
+  #   image: luca/boxhub:latest
+  #   build: ./BoxHub
+  #   restart: always
+  #   depends_on: 
+  #     - sql
+  #   volumes:
+  #     - 
+  #   hostname: boxhub
+  #   networks: 
+  #     frontend:
+  #       ipv4_address: 10.24.1.21
+  #     backend:
+  #   ports: 
+  #     - "8082:80"
 
   nginx:
     image: luca/nginx:latest
     build: ./nginx
     depends_on: 
-      - apache
-      - gogs
-      - mysql
-      - nextcloud      
-    # volumes: 
-    #   - ./nginx/conf/:/etc/nginx/
+      - host
+      - sql
+    #   - nextcloud      
     network_mode: host
+
 
   ftp:
     image: luca/ftphub:latest
     build: ./FTPHub
     volumes:
-      - 
+      - ./data:/home/guest
     hostname: ftphub
-    networks: 
-      frontend:
-        ipv4_address: 10.24.1.32
-      backend:
-    ports: 
-      - 21:21
-      - 20:20
+    network_mode: host
 
 
 volumes:
