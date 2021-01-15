@@ -4,32 +4,33 @@ RUN apt update && apt -y full-upgrade
 
 RUN apt install -y openvpn openssl wget make gcc g++ python2 python3 ufw sed gawk
 
-RUN mkdir /home/OVPN
-
-COPY ./config.sh /config.sh
+RUN mkdir -p /home/OVPN
 
 COPY ./config/vars /home/vars
-
-COPY ./lsVPN.conf /homehub.conf
+COPY ./config/server/config.sh /config.sh
+COPY ./config/server/lsVPN.conf /vpnhomehub.conf
 
 RUN /config.sh
 
 
 RUN mkdir -p /etc/openvpn/server && \
-		mkdir -p /etc/openvpn/keys && \
+		mkdir -p /home/OVPN/sever/keys && \
+		mkdir -p /home/OVPN/clients/certs && \
+		mkdir -p /home/OVPN/clients/keys
+
+# RUN chmod 700 -r /home/OVPN/server/keys/ && \
+# 		chmod 700 -r /home/OVPN/clients/keys/ && \
+# 		chown root:root /home/OVPN/keys/
+
+RUN	cp /home/easy-rsa/pki/ca.crt /home/OVPN && \
+		cp /home/easy-rsa/pki/auth.key /home/OVPN/sever/keys && \
 		mv /home/easy-rsa/pki/issued/vpnhomehub.crt /etc/openvpn/server && \ 
-		mv /home/easy-rsa/pki/private/vpnhomehub.key /etc/openvpn/keys && \
-		mv /home/easy-rsa/pki/ca.crt /etc/openvpn/server && \
-		mv /home/easy-rsa/auth.key /etc/openvpn/keys
+		mv /home/easy-rsa/pki/private/vpnhomehub.key /home/OVPN/sever/keys && \
+		mv /home/easy-rsa/pki/crl.pem /etc/openvpn/server && \
+		mv /vpnhomehub.conf /etc/openvpn/server/vpnhomehub.conf
 
-RUN mkdir -p /etc/openvpn/clients && \
-		cp /etc/openvpn/server/ca.crt /etc/openvpn/clients/ && \
-		mv /home/easy-rsa/pki/issued/client_1.crt /etc/openvpn/clients/ && \
-		mv /home/easy-rsa/pki/private/client_1.key /etc/openvpn/keys/
+COPY ./config/client/client.sh /home/easy-rsa/client.sh
+COPY ./config/client/client.conf /home/OVPN/clients/client.conf
 
 
-# RUN apt-get install systemd -y
-
-# RUN service openvpn start && openvpn --config /homehub.conf
-
-CMD tail -f /dev/null
+CMD openvpn --config /etc/openvpn/server/vpnhomehub.conf

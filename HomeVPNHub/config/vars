@@ -105,7 +105,7 @@ export EASYRSA_REQ_OU="Safeness"
 # generation take much longer. Values up to 4096 should be accepted by most
 # software. Only used when the crypto alg is rsa (see below.)
 
-export EASYRSA_KEY_SIZE=6144
+# export EASYRSA_KEY_SIZE=6144
 
 # The default crypto mode is rsa; ec can enable elliptic curve support.
 # Note that not all software supports ECC, so use care when enabling it.
@@ -118,7 +118,7 @@ export EASYRSA_ALGO=ec
 
 # Define the named curve, used in ec & ed modes:
 
-export EASYRSA_CURVE=sect571r1
+#export EASYRSA_CURVE=brainpoolP512t1
 
 # In how many days should the root CA key expire?
 
@@ -139,7 +139,7 @@ export EASYRSA_CERT_EXPIRE=3650
 
 # Random serial numbers by default, set to no for the old incremental serial numbers
 #
-export EASYRSA_RAND_SN="yes"
+#export EASYRSA_RAND_SN="yes"
 
 # Support deprecated "Netscape" extensions? (choices "yes" or "no".) The default
 # is "no" to discourage use of deprecated extensions. If you require this
@@ -205,13 +205,13 @@ export EASYRSA_RAND_SN="yes"
 # This is best left alone. Interactively you will set this manually, and BATCH
 # callers are expected to set this themselves.
 
-export EASYRSA_REQ_CN="*"
+export EASYRSA_REQ_CN="homehub"
 
 # Cryptographic digest to use.
 # Do not change this default unless you understand the security implications.
 # Valid choices include: md5, sha1, sha256, sha224, sha384, sha512
 
-#export EASYRSA_DIGEST="sha512"
+export EASYRSA_DIGEST="sha512"
 
 # Batch mode. Leave this disabled unless you intend to call Easy-RSA explicitly
 # in batch mode without any user input, confirmation on dangerous operations,
