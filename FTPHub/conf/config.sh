@@ -1,17 +1,18 @@
 #!/bin/bash
 
-# read config file
+##
+## READ CONFIG FILE
+##
 . /home/configFile.conf
-# . ./configFile.conf
 
-if [[ -z "$gpassword" || -z "$gname" ]]; then
-	echo -e "Impossible to proceed: invalid name or password"
-else
-	useradd -ms /bin/bash -p "$(openssl passwd -1 $gpassword)" -U $gname
-fi
-
-# guest user creations
-#useradd -ms /bin/bash -p "$(openssl passwd -1 $gpassword)" -U $gname
-
-# user1 creations
-# useradd -ms /bin/bash -p "$(openssl passwd -1 $upassword)" -U $uname
+##
+## SETTING-UP THE USERS
+loop=1
+while[[ $loop -le $nusers ]]
+do
+	if [[ -z "$uname$loop" || -z "$upass$loop" ]]; then
+		echo -e "Impossible to proceed: invalid name or password"
+	else
+		useradd -ms /bin/bash -p "$(openssl passwd -1 $upass$loop)" -U $uname$loop # creation of the user and his home
+	fi
+done
