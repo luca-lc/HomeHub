@@ -14,11 +14,12 @@ mv $PKI/issued/$1.crt /home/OVPN/clients/certs
 mv $PKI/private/$1.key /home/OVPN/clients/keys
 
 
-CDIR=/home/OVPN/ca.crt
+CDIR=/home/OVPN
 KEY_DIR=/home/OVPN/clients/keys
 CERT_DIR=/home/OVPN/clients/certs
-TA_DIR=/home/OVPN/sever/keys/auth.key
-OUTPUT_DIR=/home/OVPN/clients
+TA_DIR=/home/OVPN/sever/keys
+OUTPUT_DIR=/home/OVPN/clients/ovpn
+
 BASE_CONFIG=/home/OVPN/clients/client.conf
 
 cat ${BASE_CONFIG} \
@@ -29,7 +30,7 @@ cat ${BASE_CONFIG} \
     <(echo -e '</cert>\n<key>') \
     ${KEY_DIR}/${1}.key \
     <(echo -e '</key>\n<tls-auth>') \
-    ${CDIR}/auth.key \
+    ${TA_DIR}/auth.key \
     <(echo -e '</tls-auth>') \
     > ${OUTPUT_DIR}/${1}.ovpn
 

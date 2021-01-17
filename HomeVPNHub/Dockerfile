@@ -16,7 +16,8 @@ RUN /config.sh
 RUN mkdir -p /etc/openvpn/server && \
 		mkdir -p /home/OVPN/sever/keys && \
 		mkdir -p /home/OVPN/clients/certs && \
-		mkdir -p /home/OVPN/clients/keys
+		mkdir -p /home/OVPN/clients/keys && \
+		mkdir -p /home/OVPN/clients/ovpn
 
 # RUN chmod 700 -r /home/OVPN/server/keys/ && \
 # 		chmod 700 -r /home/OVPN/clients/keys/ && \
