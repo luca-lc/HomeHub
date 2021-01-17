@@ -4,6 +4,8 @@ services:
   ovpn:
     build: ./
     image: luca/openvpn:latest
+    volumes:
+      - ./clients:/home/OVPN/clients/ovpn
     network_mode: host
     devices:
     - /dev/net/tun:/dev/net/tun

@@ -2,7 +2,7 @@ FROM debian:latest
 
 RUN apt update && apt -y full-upgrade
 
-RUN apt install -y openvpn openssl wget make gcc g++ python2 python3 ufw sed gawk
+RUN apt install -y openvpn openssl wget make gcc g++ python2 python3 sed gawk
 
 RUN mkdir -p /home/OVPN
 

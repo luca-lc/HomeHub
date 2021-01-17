@@ -7,7 +7,7 @@ NC='\033[0m'
 if [[ -z "$1" ]]; then
     echo -e "${RED}Invalid client name. Retry with a valid name${NC}"
 else
-    PKI=/home/easy-rsa/pki/
+    PKI=/home/easy-rsa/pki
     /home/easy-rsa/easyrsa gen-req $1 nopass
     /home/easy-rsa/easyrsa sign-req client $1 nopass
 
