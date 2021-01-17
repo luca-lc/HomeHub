@@ -1,8 +1,8 @@
-<link rel="stylesheet" type="text/css" media="all" href="assets/style.css" />
-
 [1]: https://www.docker.com/
 [2]: https://luca-lc.github.io/
 [3]: https://plex.tv/ 
+
+(under construction)
 
 # HomeHub
 <img src="./assets/img/HomeHub.png" width="300" align="right"/> 
