@@ -36,7 +36,21 @@ if [[ "$EUID" = 0 ]]; then
 		echo ""
 	done
 	echo -e "nusers=$ftpusers" >> ./FTPHub/conf/configFile.conf
-	echo ""
+	
+	echo -e "${RED}Check if the usernames and the passwords are correct"
+	cat=$(cat ./FTPHub/conf/configFile.conf | head -n -1 | tail -n +2) # remove first and last line from ftp config file
+	echo -e "$cat\n\n"
+
+	while [[ ${con^h} != "yes" && ${con^h} != "no" ]]
+	do
+		read -p "contiue? [yes/NO]" con
+	done
+	echo -e "${NC}"
+
+	if [[ $con == "no" ]]; then
+		exit 1
+	fi
+	
 
 	##
 	## CHECK IF THE DOCKER COMPOSE IS CORRECT
@@ -44,7 +58,7 @@ if [[ "$EUID" = 0 ]]; then
 	checkdc="no"
 	while [[ ${checkdc^h} != "yes" ]]
 	do
-		read -p "Have you checked if 'docker-compose' is OK? [yes/NO]" checkdc
+		read -p "Have you checked if docker-compose is OK? [yes/NO]" checkdc
 	done
 
 	##
@@ -64,10 +78,13 @@ if [[ "$EUID" = 0 ]]; then
 
 	if [[ ${start^h} == "yes" ]]; then
 		echo -e "\n${RED}The containers are starting up${NC}"
-		docker-compose start 
-		docker stats --no-stream
-		echo -e "\n${RED}done!${NC}"
+		docker-compose start # start containers created
+		docker stats --no-stream # show docker situation
 	fi
+
+	rm ./FTPHub/conf/configFile.conf # remove ftp config file
+	
+	echo -e "\n${RED}done!${NC}"
 
 else
 	echo -e "${RED}It must be run as sudo${NC}"

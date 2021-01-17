@@ -22,7 +22,7 @@ RUN apt install -y pkg-config build-essential autoconf bison re2c libxml2-dev li
 # download tar software
 RUN wget https://www.php.net/distributions/php-8.0.0.tar.gz -O /home/php8.tar.gz
 RUN tar -zxvf /home/php8.tar.gz -C /home && rm /home/php8.tar.gz
-RUN cd /home/php-8.0.0/ && ./buildconf && ./configure && make -j4 && make install
+RUN cd /home/php-8.0.0/ && ./buildconf && ./configure && make -j4 && make test && make install
 
 
 # system update
