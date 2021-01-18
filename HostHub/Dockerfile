@@ -41,8 +41,8 @@ RUN a2enmod rewrite
 # create environment
 RUN mkdir -p /var/www/html
 COPY vhost/000-default.conf /etc/apache2/sites-enabled/000-default.conf
-COPY 404.html /var/www/html/404.html
-COPY index.html /var/www/html/index.html
+COPY ./404.html /var/www/html/404.html
+COPY ./index.html /var/www/html/index.html
 
 #start apache2 service in foreground
 CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
