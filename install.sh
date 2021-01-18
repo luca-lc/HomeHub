@@ -78,7 +78,7 @@ if [[ "$EUID" = 0 ]]; then
 
 	if [[ ${start^h} == "yes" ]]; then
 		echo -e "\n${RED}The containers are starting up${NC}"
-		docker-compose start # start containers created
+		docker-compose up -d # start containers created
 		docker stats --no-stream # show docker situation
 	fi
 
