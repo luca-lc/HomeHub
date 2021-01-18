@@ -26,9 +26,6 @@ COPY ./conf/vsftpd.userlist /etc/vsftpd.userlist
 # set permissions for the script and config file
 RUN chmod 755 /home/config.sh && chmod 755 /home/configFile.conf && /home/config.sh
 
-# set exposing ports
-EXPOSE 20 21
-
 # create the ftp directory
 RUN mkdir /home/ftp
 
