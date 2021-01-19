@@ -22,7 +22,7 @@ services:
     image: luca/sqlhub:latest
     restart: always
     volumes: 
-      - /mnt/data/conainers/sql:/var/lib/mysql
+      - /mnt/data/containers/sql:/var/lib/mysql
     environment:
       - MYSQL_ROOT_PASSWORD=${ROOT_PSWD}
       - MYSQL_USER=${USR}
