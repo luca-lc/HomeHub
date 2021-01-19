@@ -21,3 +21,5 @@ do
 
 	((loop=loop+1))
 done
+
+rm /home/configFile.conf
