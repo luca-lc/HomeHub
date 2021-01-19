@@ -7,8 +7,8 @@ services:
     restart: always
     depends_on:
       - sql
-    # volumes:
-    #   - /home/luca/Template:/var/www
+    volumes:
+      - /mnt/data/containers/host:/var/www
     hostname: hosthub
     networks: 
       frontend:
@@ -22,37 +22,37 @@ services:
     image: luca/sqlhub:latest
     restart: always
     volumes: 
-      - mariadb:/var/lib/mysql
-    # environment:
-    #   - MYSQL_ROOT_PASSWORD=${ROOT_PSWD}
-    #   - MYSQL_USER=${USR}
-    #   - MYSQL_PASSWORD=${PSWD}
+      - /mnt/data/conainers/sql:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=${ROOT_PSWD}
+      - MYSQL_USER=${USR}
+      - MYSQL_PASSWORD=${PSWD}
     hostname: sqlhub  
     networks: 
       frontend:
 
-  # box:
-  #   image: luca/boxhub:latest
-  #   build: ./BoxHub
-  #   restart: always
-  #   depends_on: 
-  #     - sql
-  #   volumes:
-  #     - 
-  #   hostname: boxhub
-  #   networks: 
-  #     frontend:
-  #       ipv4_address: 10.24.1.21
-  #     backend:
-  #   ports: 
-  #     - "8082:80"
+  box:
+    image: luca/boxhub:latest
+    build: ./BoxHub
+    restart: always
+    depends_on: 
+      - sql
+    volumes:
+      - /mnt/data/containers/box:/var/www
+    hostname: boxhub
+    networks: 
+      frontend:
+        ipv4_address: 10.24.1.21
+      backend:
+    ports: 
+      - "8082:80"
 
   plex:
     image: plexinc/pms-docker 
     volumes:
-      - ./plex/data/database:/config
-      - ./plex/data/transcode:/transcode
-      - ./plex/data/media:/data
+      - /mnt/data/containers/plex/database:/config
+      - /mnt/data/containers/plex/transcode:/transcode
+      - /mnt/data/containers/plex/media:/data
     hostname: PlexHub
     network_mode: host
 
@@ -62,7 +62,7 @@ services:
     depends_on: 
       - host
       - sql
-    #   - nextcloud  
+      - box  
       - plex    
     network_mode: host
 
@@ -71,13 +71,12 @@ services:
     image: luca/ftphub:latest
     build: ./FTPHub
     volumes:
-      - ./data:/home/guest
+      - /mnt/data/containers/ftp/luca:/home/luca
+      - /mnt/data/containers/ftp/guest:/home/guest
+      - /mnt/data/containers/ftp/cctv:/home/cctv
     hostname: ftphub
     network_mode: host
 
-
-volumes:
-  mariadb:
 
 networks: 
   backend:
