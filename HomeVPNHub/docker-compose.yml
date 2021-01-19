@@ -5,10 +5,10 @@ services:
     build: ./
     image: luca/openvpn:latest
     volumes:
-      - ./clients:/home/OVPN/clients/ovpn
+      - /mnt/data/containers/clientsOVPN:/home/OVPN/clients/ovpn
     network_mode: host
     devices:
-    - /dev/net/tun:/dev/net/tun
+      - /dev/net/tun:/dev/net/tun
     cap_add:
-    - NET_ADMIN
+      - NET_ADMIN
     
