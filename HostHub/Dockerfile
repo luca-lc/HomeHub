@@ -22,7 +22,7 @@ RUN apt install -y pkg-config build-essential autoconf bison re2c libxml2-dev li
 # download tar software
 RUN wget https://www.php.net/distributions/php-8.0.0.tar.gz -O /home/php8.tar.gz
 RUN tar -zxvf /home/php8.tar.gz -C /home && rm /home/php8.tar.gz
-RUN cd /home/php-8.0.0/ && ./buildconf && ./configure && make -j4 && make test && make install
+RUN cd /home/php-8.0.0/ && ./buildconf && ./configure && make -j4 && make install
 RUN rm -rf /home/php-8.0.0/
 
 
@@ -41,6 +41,8 @@ RUN mkdir -p /var/www/html
 COPY vhost/000-default.conf /etc/apache2/sites-enabled/000-default.conf
 COPY ./404.html /var/www/html/404.html
 COPY ./index.html /var/www/html/index.html
+
+EXPOSE 80
 
 #start apache2 service in foreground
 CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]

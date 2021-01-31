@@ -5,16 +5,25 @@ NC='\033[0m'
 
 if [[ "$EUID" = 0 ]]; then
 
-	##
-	## SET HOST
-	##
-	apt install ufw -y # installation of ufw for easier management of iptables
+# 	##
+# 	## SET HOST
+# 	##
+# 	apt install ufw -y # installation of ufw for easier management of iptables
 
-	ufw enable
-	ufw allow 443/tcp # open port for web server
-	ufw allow 20/tcp # open port for ftp data
-	ufw allow 21/tcp # open port for ftp commands
-	ufw allow 46058 # open port for ftp passive mode
+# 	ufw enable
+# 	ufw allow 443/tcp # open port for web server
+# 	ufw allow 20/tcp # open port for ftp data
+# 	ufw allow 21/tcp # open port for ftp commands
+# 	ufw allow 46058 # open port for ftp passive mode
+
+	cp ./apparmor/profiles/* /etc/apparmor.d/
+	/etc/init.d/apparmor stop
+	for file in ./apparmor/profiles/*
+	do
+		apparmor_parser -R /etc/apparmor.d/"$file"
+		apparmor_parser -r -W /etc/apparmor.d/"$file"
+	done
+	/etc/init.d/apparmor start
 
 	##
 	## SET FTP USERS 

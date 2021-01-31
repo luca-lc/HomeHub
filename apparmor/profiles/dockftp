@@ -1,0 +1,13 @@
+#include <tunables/global>
+
+profile dockftp {
+	#include <abstractions/base>
+	
+	
+  file,
+	network inet tcp,
+	capability net_bind_service,
+
+	deny /home/prova/** w,
+
+}

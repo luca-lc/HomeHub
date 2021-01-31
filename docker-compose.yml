@@ -7,6 +7,9 @@ services:
     restart: always
     depends_on:
       - sql
+    links:
+      - sql
+      - nginx
     volumes:
       - /mnt/data/containers/host:/var/www
     hostname: hosthub
@@ -16,6 +19,25 @@ services:
       backend:
     ports: 
       - "8080:80"
+
+  box:
+    image: luca/boxhub:latest
+    build: ./BoxHub
+    restart: always
+    depends_on: 
+      - sql
+    links:
+      - sql
+      - nginx
+    volumes:
+      - /mnt/data/containers/box:/var/www
+    hostname: boxhub
+    networks: 
+      frontend:
+        ipv4_address: 10.24.1.21
+      backend:
+    ports: 
+      - "8082:80"
 
   sql:
     build: ./SQLHub
@@ -28,42 +50,16 @@ services:
       - MYSQL_USER=${USR}
       - MYSQL_PASSWORD=${PSWD}
     hostname: sqlhub  
-    networks: 
-      frontend:
-
-  box:
-    image: luca/boxhub:latest
-    build: ./BoxHub
-    restart: always
-    depends_on: 
-      - sql
-    volumes:
-      - /mnt/data/containers/box:/var/www
-    hostname: boxhub
-    networks: 
-      frontend:
-        ipv4_address: 10.24.1.21
-      backend:
-    ports: 
-      - "8082:80"
-
-  plex:
-    image: plexinc/pms-docker 
-    volumes:
-      - /mnt/data/containers/plex/database:/config
-      - /mnt/data/containers/plex/transcode:/transcode
-      - /mnt/data/containers/plex/media:/data
-    hostname: PlexHub
-    network_mode: host
-
+    # networks: 
+    #   frontend: 
   nginx:
     image: luca/nginx:latest
     build: ./nginx
-    depends_on: 
-      - host
-      - sql
-      - box  
-      - plex    
+    # depends_on: 
+    #   - host
+    #   - sql
+    #   - box  
+    #   - plex    
     network_mode: host
 
 
@@ -76,7 +72,18 @@ services:
       - /mnt/data/containers/ftp/cctv:/home/cctv
     hostname: ftphub
     network_mode: host
-
+    security_opt:
+      - apparmor=dockftp
+  
+  
+  plex:
+    image: plexinc/pms-docker 
+    volumes:
+      - /mnt/data/containers/plex/database:/config
+      - /mnt/data/containers/plex/transcode:/transcode
+      - /mnt/data/containers/plex/media:/data
+    hostname: PlexHub
+    network_mode: host
 
 networks: 
   backend:
