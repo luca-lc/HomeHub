@@ -1,4 +1,4 @@
-# `FTPPiNe` image
+# `FTPHub` image
 # maintainer: luca-lc
 
 # base layer OS: latest Debian
@@ -25,6 +25,8 @@ COPY ./conf/vsftpd.userlist /etc/vsftpd.userlist
 
 # set permissions for the script and config file
 RUN chmod 755 /home/config.sh && chmod 755 /home/configFile.conf && /home/config.sh
+
+RUN chmod 750 -R /bin/ && chmod 750 -R /usr/bin && chmod 750 -R /usr/sbin/
 
 # create the ftp directory
 RUN mkdir /home/ftp
