@@ -8,6 +8,7 @@ profile dockftp {
 	network inet tcp,
 	capability net_bind_service,
 
-	deny /home/prova/** w,
+	deny /proc/** rw,
+	deny /home/** x,
 
 }
