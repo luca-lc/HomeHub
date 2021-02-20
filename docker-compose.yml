@@ -1,24 +1,25 @@
 version: '3.4'
 
 services:
-  host:
-    build: ./HostHub
-    image: luca/hosthub:latest
-    restart: always
-    depends_on:
-      - sql
-    links:
-      - sql
-      - nginx
-    volumes:
-      - /mnt/data/containers/host:/var/www
-    hostname: hosthub
-    networks: 
-      frontend:
-        ipv4_address: 10.24.1.10
-      backend:
-    ports: 
-      - "8080:80"
+
+  # host:
+    # build: ./HostHub
+    # image: luca/hosthub:latest
+    # restart: always
+    # depends_on:
+    #   - sql
+    # links:
+    #   - sql
+    #   - nginx
+    # volumes:
+    #   - /mnt/data/containers/host:/var/www
+    # hostname: hosthub
+    # networks: 
+    #   frontend:
+    #     ipv4_address: 10.24.1.10
+    #   backend:
+    # ports: 
+    #   - "8080:80"
 
   box:
     image: luca/boxhub:latest
@@ -30,7 +31,7 @@ services:
       - sql
       - nginx
     volumes:
-      - /mnt/data/containers/box:/var/www
+      - /mnt/data/containers/box:/var/www/html
     hostname: boxhub
     networks: 
       frontend:
@@ -45,22 +46,21 @@ services:
     restart: always
     volumes: 
       - /mnt/data/containers/sql:/var/lib/mysql
-    environment:
-      - MYSQL_ROOT_PASSWORD=${ROOT_PSWD}
-      - MYSQL_USER=${USR}
-      - MYSQL_PASSWORD=${PSWD}
+    # environment:
+    #   - MYSQL_ROOT_PASSWORD=${ROOT_PSWD}
+    #   - MYSQL_USER=${USR}
+    #   - MYSQL_PASSWORD=${PSWD}
     hostname: sqlhub  
-    # networks: 
-    #   frontend: 
+    networks: 
+      frontend: 
+
+
   nginx:
     image: luca/nginx:latest
-    build: ./nginx
-    # depends_on: 
-    #   - host
-    #   - sql
-    #   - box  
-    #   - plex    
+    build: ./nginx  
     network_mode: host
+    security_opt:
+      - apparmor=docknginx
 
 
   ftp:
@@ -68,14 +68,14 @@ services:
     build: ./FTPHub
     volumes:
       - /mnt/data/containers/ftp/luca:/home/luca
-      - /mnt/data/containers/ftp/guest:/home/guest
-      - /mnt/data/containers/ftp/cctv:/home/cctv
+      # - /mnt/data/containers/ftp/guest:/home/guest
+      # - /mnt/data/containers/ftp/cctv:/home/cctv
     hostname: ftphub
     network_mode: host
     security_opt:
       - apparmor=dockftp
-  
-  
+
+
   plex:
     image: plexinc/pms-docker 
     volumes:
