@@ -1,0 +1,260 @@
+[client]
+port = 3306
+
+#Client default connection port socket
+socket = /apps/mysql/lock/mysql.sock
+
+#Socket socket for local connection
+[mysqld]
+
+#Basic configuration of server
+port = 3306
+
+#MySQL server listening port
+socket = /apps/mysql/lock/mysql.sock
+
+#Specify a socket file for local communication between MySQL client and server
+basedir = /apps/mysql
+
+#MySQL installation directory
+datadir = /apps/mysql/data
+
+#Mysql database data file storage directory
+pid-file = /apps/mysql/run/mysql.pid
+
+#Directory where PID is located
+log-error = /apps/mysql/logs/mysql-error.log
+
+#Log MySQL error log file
+user = mysql
+
+#MySQL startup user
+bind-address=192.168.1.146
+
+#Indicates listening to IPv4 address
+skip_name_resolve = 1
+
+#Indicates skipping host name resolution
+skip-external-locking
+
+#MySQL option to avoid external locking. This option is on by default. No system locking is used. To use myisamchk, the server must be shut down
+key_buffer_size = 384M
+
+#This parameter is used to cache the index parameters of MyISAM storage engine, and increase it to get better indexes (for all reads and multiple rewrites). It is the InnoDB storage engine by default. This parameter can be set as small as 64M.
+#The system will start to page change and really slow down. For servers with 4GB memory, this parameter can be set to 384m or 512M. By checking the status value key_ read_ Requests and key_ reads，
+#You can know the key_ buffer_ Whether the size setting is reasonable. Ratio key_ reads/key_ read_ Requests should be as low as possible,  
+#At least 1:100, 1:1000 is better (the above status value can use show status like 'key_ Read% '). Note: if the parameter value is set too large, the overall efficiency of the server will be reduced
+max_allowed_packet = 16M
+
+#Allows the maximum size of received packets and prevents the server from sending too large packets. Increasing the value of this variable is safe because additional memory is allocated only when needed. For example, mysqld allocates more memory only if you issue a long query or mysqld must return a large result row. It can be set to 16MB or more, but setting it too large can be dangerous.
+#The smaller default value of this variable is a preventive measure to catch error packets between the client and the server, and to ensure that memory overflow is not caused by accidental use of large packets.
+table_open_cache = 512
+
+#Every time MySQL opens a table, it will read some data into the table_ open_ In the cache cache, when MySQL cannot find the corresponding information in this cache, it will be read from the disk. The default value is 64. If the system has 200 concurrent connections, you need to set this parameter to 200 * n (n is the number of file descriptors required for each connection); when the_ open_ When the cache is set to a large size, if the system can not process so many file descriptors, the client will fail to connect.
+back_log = 600
+
+#The number of connections MySQL can have. This works when the main MySQL thread gets a lot of connection requests in a short period of time,  
+#The main thread then takes some time (though short) to check the connection and start a new thread. back_ The log value indicates how many requests can be stored in the stack for a short period of time before MySQL temporarily stops answering new requests.
+#If you expect a lot of connections in a short period of time, you need to increase it. In other words, if the connection data of MySQL reaches max_ When connections is set, new requests will be stored in the stack,  
+#To wait for a connection to release resources, the number of this stack is called back_ Log, if the number of waiting connections exceeds back_ Log, will not be granted connection resources.  
+#In addition, this value (back)_ Log) is limited to the size of your operating system's listening queue for incoming TCP / IP connections.  
+#Your operating system has its own limit on the size of this queue (you can check your OS documentation to find out the maximum value of this variable). Try to set back_ Log above the limit of your operating system will be invalid.
+sort_buffer_size = 8M
+
+#The buffer size used by MySQL for sorting. If you want to increase the speed of order by, first see if you can let MySQL use indexes instead of extra sort stages.  
+#If not, try increasing sort_ buffer_ The size of the size variable. The default value is 256K. In addition, when using filesort appears, you need to increase the index to solve the problem.
+read_buffer_size = 2M
+
+#This parameter is used for the sequential scan of the table and represents the buffer size allocated by each thread. For example, when performing a full table scan, MySQL will read data blocks in the order of data storage, and the data blocks read each time will be temporarily stored in read_ buffer_ In size, when the buffer space is full or all data reading is finished, the data in the buffer is returned to the upper layer caller to improve efficiency. The default value is 128K. This parameter should not be set too large, generally between 128 and 256. If the sequential scan requests for a table are very frequent and you think that the frequent scans are going too slowly, you can improve its performance by increasing the value of the variable and the size of the memory buffer
+read_rnd_buffer_size = 8M
+
+#This parameter is used for random read of the table and represents the buffer size allocated by each thread. For example, when an order by sort operation is performed according to a non index field, this buffer will be used to hold the read data. The default value is 256Kb. Do not set this parameter too large. Generally, it is 128-512kb.
+#MySQL will scan the buffer first to avoid disk search and improve the query speed. If you need to sort a large amount of data, you can adjust the value appropriately. However, MySQL will allocate this buffer space for each customer connection, so it should be set appropriately as far as possible to avoid excessive memory overhead.
+myisam_sort_buffer_size = 64M
+
+#MyISAM sets the size of the buffer used when restoring the table. When sorting the buffer allocated by MyISAM index during repair table or index creation or alter table with create index, you may encounter "MyISAM"_ sort_ buffer_ size is too small”
+myisam_max_sort_file_size = 10G
+
+#Do not use the quick sort index method to create an index if the temporary file becomes over index. Note: this parameter is given in bytes
+myisam_repair_threads = 1
+
+#If the value is greater than 1, MyISAM table indexes are created in parallel during repair by sorting (each index is in its own thread)
+thread_cache_size = 64
+
+#Thread pool, thread cache. It is used to cache idle threads so that they will not be destroyed. If the idle threads in thread buffer need to re-establish new connections, the cache in the thread pool will be called first, and the connection request can be responded quickly. Every time a connection is established, a thread is required to match it.
+#This value (default 8) indicates that the number of threads saved in the cache can be reused. If there is still space in the cache when the connection is disconnected, the client's threads will be put into the cache,  
+#If a thread is re requested, the request will be read from the cache. If the cache is empty or a new request, the thread will be recreated. If there are many new threads,  
+#Increasing this value can improve system performance. By comparing connections and threads_ The function of this variable can be seen. (- > indicates the value to be adjusted)  
+#According to the physical memory setting rules are as follows:  
+#1G  —> 8  
+#2G  —> 16  
+#3G  —> 32  
+#Greater than 3G - > 64
+query_cache_size = 32M
+
+#Cache the parameters of select statement and result set size. Query cache will store the text of a select query and the corresponding results delivered to the client. If the same query is later received, the server will retrieve the results from the query cache instead of analyzing and executing the same query again. If there are few write operations and frequent read operations in your environment, open query_ cache_ If type = 1, the performance will be significantly improved. If the write operation is frequent, it should be closed_ cache_ type=0）。
+#In the future, for the same select statement (case sensitive), the results will be read directly from the buffer. According to the MySQL user manual, query buffering can achieve a maximum efficiency of 238%.  
+#By checking the status value 'qcache'_ %You can know query_ cache_ Whether the size setting is reasonable: if qcache_ lowmem_ The value of prunes is very large, which indicates that there is often insufficient buffer,  
+#If qcache_ The value of hits is also very large, indicating that the query buffer is used very frequently, and the buffer size needs to be increased at this time; if the Q cache_ A small hit value indicates that your query repetition rate is very low,  
+#In this case, the use of query buffer will affect the efficiency, so we can consider not using query buffer. In addition, add SQL to the select statement_ NO_ Cache can explicitly indicate that query buffering is not used
+query_cache_limit = 2M
+
+#Specifies the buffer size that a single query can use. The default value is 1m.
+tmp_table_size = 64M
+
+#The maximum length of the temporary heap data table (the default setting is 32m),
+#The heap table buffer size of MySQL. All unions are done within a DML instruction, and most unions can be done without even temporary tables.  
+#Most temporary tables are memory based (heap) tables. Temporary tables with large record length (sum of all column lengths) or tables containing blob columns are stored on the hard disk.  
+#If an internal heap table size exceeds TMP_ table_ MySQL can automatically change the heap table in memory to MyISAM table based on hard disk as needed. You can also set TMP by_ table_ Size option to increase the size of the temporary table. In other words, if you increase the value, MySQL will increase the size of the heap table, which can improve the speed of join query
+join_buffer_size = 64M
+
+#The size of the buffer that can be used by federated query operations, and sort_ buffer_ As with size, the allocated memory for this parameter is exclusive to each connection
+thread_concurrency = 4
+
+#It is generally recommended to set the number of CPUs * 2
+ft_min_word_len = 4
+
+#The minimum length of participle words, the default value is 4
+explicit_defaults_for_timestamp = true
+
+#Whether to display the default timestamp. True is to display
+#skip-networking
+
+max_connections = 1000
+
+#This parameter is used to set the maximum number of connections in MySQL. The default value is 100. Generally, it can be set to 512-1000. Too many connections can lead to excessive memory usage and lock your MySQL server. Generally, small websites need 100-200 connections, while larger websites may need 500-800 or more. The value here depends largely on your usage of MySQL / MariaDB.
+#If the server has a large number of concurrent connection requests, it is recommended to increase the number of parallel connections by increasing this value. Of course, this is based on the condition that the machine can support it. If the number of connections is more, MySQL will provide connection buffer for each connection, which will cost more memory. Therefore, it is necessary to adjust the value appropriately and not blindly increase the setting value. You can use the 'conn%' wildcard to see the number of connections in the current state to determine the size of the value.
+max_connect_errors = 1000
+
+#If sometimes the network is abnormal or the application configuration is wrong, or other reasons cause the client to continuously try to connect in a short period of time, the wrong connection will be broken if the number of the parameter value is exceeded. The host will be disabled and may be blacklisted. You will then be unable to connect until the host cache is refreshed again. To unblock the host, flush host is required. The default value of this option is too small. Consider setting it large enough (if your server configuration is powerful enough).
+open_files_limit = 65535
+
+#Set the maximum number of files opened by MySQL and the file descriptor limit opened by mysql. The default minimum is 1024. When open_ files_ When limit is not configured, compare max_ The value of connections * 5 and ulimit - N, which is the most important one.
+transaction_isolation = REPEATABLE-READ
+
+#MySQL supports four transaction isolation levels: read-uncommitted, read-committed, repeatable-read, and serializable.
+#If not specified, MySQL uses repeatable-read by default, and Oracle uses read-committed by default
+log-bin=mysql-bin
+
+binlog_format=mixed
+
+#Specifies that the log format is mixed
+binlog_cache_size = 64M
+
+#When a transaction is not committed, the log generated will be recorded in the cache; when the transaction commit needs to be committed, the log will be persisted to disk. The default size of this value is 32K, which can be set by yourself.
+max_heap_table_size = 8M
+
+#It defines the size of the memory table that users can create. This value is used to calculate the maximum row value of the memory table. This variable supports dynamic change
+server-id = 1
+
+#It means that the serial number of the local machine is 1, and a unique ID number is assigned to the server; the value range of n is 1 ~ 2 to the 32nd power to enable the binary log function. It is used when copying data synchronization. Generally speaking, it means master
+expire_logs_days = 30
+
+#It refers to the number of days that binlog is deleted for more than 30 days, and the number of days to keep the log after enabling binary log. The server will automatically clean up the log files before the specified number of days. If it is not set, the server will run out of space. It is generally set for 7-30 days.
+default_storage_engine = InnoDB
+
+#The default storage engine for new data tables (the default setting is MyISAM). This setting can also be set via the – default table type option.
+innodb_file_per_table = 1
+
+#InnoDB is an independent table space schema, and each table in each database will generate a data space. You can also reclaim unused space when you delete or truncate a database table. Another benefit of this configuration is that you can put some database tables on a separate storage device. This can greatly increase the I / O load on your disk.
+#Advantages of independent table space:  
+#1. Each table has its own independent table space.  
+#2. The data and index of each table will exist in its own table space.  
+#3. Single table can be moved in different databases.  
+#4. Space can be recycled (except for drop table operation, table space cannot be reclaimed by itself)  
+#Disadvantages:  
+#Excessive increase of single meter, such as more than 100g  
+#Conclusion  
+#Shared table spaces have few advantages over insert operations. Nothing else works as well as independent table spaces. When the independent table space is enabled, please adjust reasonably: InnoDB_ open_ files
+innodb_data_home_dir = /apps/mysql/data
+
+#InnoDB home directory, all directory or file paths related to InnoDB data table are relative to this path. By default, this home directory is the MySQL data directory.
+innodb_data_file_path = ibdata1:10M:autoextend
+
+#The table space used to hold InnoDB as a data table: it may involve more than one file; the maximum length of each table space file must be given in bytes (b), megabytes (MB) or gigabytes (GB); the names of table space files must be separated by semicolons; the last table space file can also carry an AUTOEXTEND attribute and a maximum length（ max:n )。
+innodb_log_group_home_dir = /apps/mysql/logs
+
+#Directory path used to store InnoDB log files (such as IB_ logfile0、ib_ Logfile1, etc.). By default, the InnoDB driver will use the MySQL data directory as its own location for saving log files.
+innodb_buffer_pool_size = 4G
+
+#This parameter is the core parameter of InnoDB storage engine. It is 128KB by default
+#InnoDB uses a buffer pool to hold indexes and raw data, unlike MyISAM  
+#The larger you set here, the less disk I / O you need to access the data in the table  
+#On a stand-alone database server, you can set this variable to 60-80% of the server's physical memory size  
+#Do not set too large, otherwise, due to the physical memory competition may cause the operating system page change bumpy  
+#Note that on a 32-bit system, each process may be limited to 2-3.5g user level memory,  
+#So don't set it too high
+innodb_write_io_threads = 4
+innodb_read_io_threads = 4
+
+#InnoDB uses background threads to process read / write I / O requests on data pages, which can be changed according to the number of CPU cores. The default value is 4  
+#Note: these two parameters do not support dynamic change, which need to be added to the my.cnf After the modification, restart the MySQL service. The allowed values range from 1-64
+innodb_thread_concurrency = 0
+
+#The default setting is 0, which means there is no limit on the number of concurrency. Here, it is recommended to set it to 0 to better play the CPU's multi-core processing ability and improve the concurrency
+innodb_purge_threads = 1
+
+#Clean operation in InnoDB is a kind of operation to recycle useless data periodically. In previous versions, cleanup was part of the main thread, which meant that it could block other database operations at run time.  
+#Starting with MySQL version 5.5. X, the operation runs in a separate thread and supports more concurrency. Users can set InnoDB by_ purge_ The threads configuration parameter is used to select whether the purge operation uses a single  
+#Single thread. By default, the parameter is set to 0 (no separate thread is used). When it is set to 1, it means that a separate cleaning thread is used. The suggestion is 1
+innodb_log_file_size = 1G
+
+#The maximum length of the transaction log file write cache (the default setting is 1MB). Larger settings can improve performance, but also increase the time required to recover a failed database
+innodb_log_files_in_group = 3
+
+#To improve performance, MySQL can write log files to multiple files in a circular manner. The recommended setting is 3
+innodb_max_dirty_pages_pct = 90
+
+#InnoDB main thread flushes the data in the cache pool, making the proportion of dirty data less than 90%
+innodb_strict_mode = 0
+
+innodb_log_buffer_size = 64M
+
+#This parameter determines the amount of memory used by some log files, in M. Larger buffers can improve performance, but unexpected failures can lose data. The cache used by the transaction log. In order to improve the performance of InnoDB when writing transaction log, the information is first written to InnoDB log buffer. When InnoDB is satisfied, the_ flush_ log_ trx_ When the corresponding condition (or the log buffer is full) set by the commit parameter, the log is written to the file (or synchronized to disk). Through InnoDB_ log_ buffer_ The size parameter sets the maximum memory space it can use. The default is 8MB, which is usually 16-64mb.
+innodb_flush_log_at_trx_commit = 1
+
+#This option determines when log information is written to log files and when these files are physically written (in the term "sync") to the hard disk.
+#0: if InnoDB_ flush_ log_ At_ trx_ If the commit value is 0, the log buffer will be flushed to the disk every second. When the transaction is committed, no operation is performed (the execution is performed by the master thread thread of MySQL).  
+#The redo log buffer is written to the redo log file (redo log) on disk every second in the main thread. Whether the transaction has been committed or not) the default log file is IB_ logfile0,ib_ logfile1  
+#1: When it is set to the default value of 1, the log buffer will be written to the log every time a transaction is committed.  
+#2: If it is set to 2, the log will be written every time the transaction is committed, but the brush operation will not be performed. The log file is periodically flushed per second. It should be noted that there is no guarantee that 100% of the disk will be flushed every second, which depends on the scheduling of the process.  
+#Each time a transaction is committed, the data is written to the transaction log, and the write here only calls the write operation of the file system. The file system has a cache, so this write does not guarantee that the data has been written to the physical disk
+#The default value of 1 is to ensure complete acid. Of course, you can set this configuration item to a value other than 1 for better performance, but when the system crashes, you will lose 1 second of data.  
+#If it is set to 0, the mysqld process will lose the last one second transaction when it crashes. Set to 2, the last second of data will be lost only when the operating system crashes or loses power. InnoDB will ignore this value during recovery.  
+#Summary 
+#Setting to 1 is of course the safest, but the performance page is the worst (relative to the other two parameters, but not unacceptable). If the requirements for data consistency and integrity are not high, it can be set to 2. If only performance is required, such as the log server with high concurrent write, set it to 0 to obtain higher performance
+innodb_lock_wait_timeout = 50
+
+#If a transaction does not get the required resources after waiting for N seconds (s), the rollback command is used to abort the transaction. This setting is of great significance for discovering and handling deadlock conditions that are not recognized by InnoDB data table drivers.
+#The number of timeout seconds that InnoDB transactions can wait for a lock before being rolled back. InnoDB automatically detects transaction deadlock in its own lock table and rolls back the transaction. InnoDB notices the lock setting with the lock tables statement. The default value is 50 seconds
+interactive_timeout = 28800
+
+#The number of seconds the server waits for activity before closing an interactive connection. Interactive client is defined as mysql_ real_ Use client in connect()_ The client of the interactive option. Default: 28800 seconds (8 hours)
+wait_timeout = 28800
+
+#The number of seconds the server waits for activity before closing a non interactive connection. When the thread starts, it is based on the global wait_ Timeout value or global interactive_ The timeout value initializes the session wait_ Timeout value,  
+#Depending on the client type (by MySQL_ real_ Connection option client for connect()_ Interactive definition). Parameter default value: 28800 seconds (8 hours)  
+#There is an upper limit to the maximum number of connections supported by the MySQL server, because the establishment of each connection will consume memory. Therefore, we hope that after connecting to the MySQL server and processing the corresponding operations, the client can complete the operation,  
+#You should disconnect and free up the occupied memory. If your MySQL server has a large number of idle connections, they will not only consume memory in vain, but also if the connections keep accumulating and keep opening,  
+#Eventually, the maximum number of connections to MySQL server will be reached, which will report an error of 'too many connections'. For wait_ The value setting of timeout should be judged according to the operation of the system 
+#After the system has been running for a period of time, you can view the connection status of the current system through the show processlist command. If a large number of connection processes in sleep status are found, the parameter setting is too large,  
+#It can be adjusted to be smaller. To set interactive at the same time_ Timeout and wait_ Timeout will take effect.
+[mysqldump]
+quick
+max_allowed_packet = 16M
+
+#Maximum packet length sent and accepted by the server
+[mysql]
+no-auto-rehash
+
+Auto rehash means auto completion, just like when we input commands in Linux command line, the function of tab key is the same.
+[myisamchk]
+key_buffer_size = 384M
+sort_buffer_size = 256M
+read_buffer = 128M
+write_buffer = 128M
+
+[mysqlhotcopy]
+interactive-timeout
+
+#The number of seconds the server waits for activity before closing an interactive connection. Interactive client is defined as mysql_ real_ Use client in connect()_ The client of the interactive option. Default: 28800 seconds (8 hours)
