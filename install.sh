@@ -94,6 +94,7 @@ if [[ "$EUID" = 0 ]]; then
 
 	rm ./FTPHub/conf/configFile.conf # remove ftp config file
 	
+	echo -e "!!! For better security remember to clean the environment variables for each container !!!"
 	echo -e "\n${RED}done!${NC}"
 
 else
