@@ -13,7 +13,7 @@ RUN mkdir -p /etc/nginx/ssl/
 # create private key
 RUN openssl ecparam -genkey -name prime256v1 -out /etc/nginx/ssl/privkey.key
 # create certificate request
-RUN openssl req -new -key /etc/nginx/ssl/privkey.key -out /etc/nginx/ssl/csr.pem -subj "/C=IT/ST=Tuscany/L=Pisa/O=HomeHub/OU=HA/CN=."
+RUN openssl req -new -key /etc/nginx/ssl/privkey.key -out /etc/nginx/ssl/csr.pem -subj "/C=IT/ST=Tuscany/L=Pisa/O=HomeHub services/OU=clouding/CN=HHC"
 # create self-signed certificate
 RUN openssl req -x509 -nodes -days 3650 -key /etc/nginx/ssl/privkey.key -in /etc/nginx/ssl/csr.pem -out /etc/nginx/ssl/certificate.pem
 # rewrite permissions

@@ -1,6 +1,6 @@
 <?php
 $CONFIG = array (
-  'htaccess.RewriteBase' => '/',
+  'htaccess.RewriteBase' => '/boxhub',
   'memcache.local' => '\\OC\\Memcache\\APCu',
   'apps_paths' => 
   array (
@@ -17,9 +17,7 @@ $CONFIG = array (
       'writable' => false,
     ),
   ),
-  'instanceid' => 'ocu7e04ylan6',
-  'passwordsalt' => 'nbzRsAw8DPw4ilizztFiwLx0wEj8mX',
-  'secret' => 'fRQi2/0jQziIAmZ3nN2winMtpW+rVjnAro0QTOFrMkAtg3js',
+  'installed' => false,
   'trusted_domains' => 
   array (
     0 => 'localhost:8082',
@@ -29,7 +27,7 @@ $CONFIG = array (
   'datadirectory' => '/var/www/html/files',
   'dbtype' => 'mysql',
   'version' => '20.0.5.2',
-  'overwrite.cli.url' => 'https://localhost/boxhub',
+  'overwrite.cli.url' => '',
   'dbname' => '_hbox_',
   'dbhost' => 'homehub_sql_1',
   'dbport' => '3306',
@@ -46,7 +44,7 @@ $CONFIG = array (
   'skeletondirectory' => '', //default file  at building time
   'lost_password_link' => 'disabled', //reset password for read only user
   'overwriteprotocol' => '',
-  'overwritewebroot' => '/boxhub/',
+  'overwritewebroot' => '/boxhub',
   'overwritehost' => '',
   'appcodechecker' => true,
   'config_is_read_only' => true,

@@ -24,4 +24,4 @@ EXPOSE 3306/tcp
 
 
 # DO NOT MODIFY 'MYSQL_USER'
-ENV MYSQL_USER sqlhubUser 
+# ENV MYSQL_USER sqlhubUser 

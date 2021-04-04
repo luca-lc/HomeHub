@@ -36,10 +36,10 @@ services:
     networks: 
       frontend:
         ipv4_address: 10.24.1.21
-      backend:
     ports: 
       - "8082:80"
-
+    # security_opt:
+    #   - apparmor=dockbox
   sql:
     build: ./SQLHub
     image: luca/sqlhub:latest
@@ -86,8 +86,6 @@ services:
     network_mode: host
 
 networks: 
-  backend:
-    driver: bridge
   frontend:
     driver: bridge
     ipam:
