@@ -46,10 +46,10 @@ services:
     restart: always
     volumes: 
       - /mnt/data/containers/sql:/var/lib/mysql
-    # environment:
-    #   - MYSQL_ROOT_PASSWORD=${ROOT_PSWD}
-    #   - MYSQL_USER=${USR}
-    #   - MYSQL_PASSWORD=${PSWD}
+    environment:
+      - MYSQL_ROOT_PASSWORD=${ROOT_PSWD}
+      - MYSQL_USER=${USR}
+      - MYSQL_PASSWORD=${PSWD}
     hostname: sqlhub  
     networks: 
       frontend: 
@@ -77,7 +77,7 @@ services:
 
 
   plex:
-    image: plexinc/pms-docker 
+    image: plexinc/pms-docker:armv7
     volumes:
       - /mnt/data/containers/plex/database:/config
       - /mnt/data/containers/plex/transcode:/transcode
