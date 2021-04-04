@@ -48,8 +48,6 @@ services:
       - /mnt/data/containers/sql:/var/lib/mysql
     environment:
       - MYSQL_ROOT_PASSWORD=${ROOT_PSWD}
-      - MYSQL_USER=${USR}
-      - MYSQL_PASSWORD=${PSWD}
     hostname: sqlhub  
     networks: 
       frontend: 
@@ -68,8 +66,8 @@ services:
     build: ./FTPHub
     volumes:
       - /mnt/data/containers/ftp/luca:/home/luca
-      # - /mnt/data/containers/ftp/guest:/home/guest
-      # - /mnt/data/containers/ftp/cctv:/home/cctv
+      - /mnt/data/containers/ftp/guest:/home/guest
+      - /mnt/data/containers/ftp/cctv:/home/cctv
     hostname: ftphub
     network_mode: host
     security_opt:
