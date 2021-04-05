@@ -13,8 +13,8 @@ ADD ./my.cnf /etc/mysql/my.cnf
 ENV MYSQL_ROOT_PASSWORD tmp_root
 
 # set temporary environment
-ENV MYSQL_PASSWORD tmp_pswd
-ENV MYSQL_DATABASE nc
+# ENV MYSQL_PASSWORD tmp_pswd
+# ENV MYSQL_DATABASE nc
 
 # set communication port
 EXPOSE 3306/tcp

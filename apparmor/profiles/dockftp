@@ -7,8 +7,13 @@ profile dockftp {
   file,
 	network inet tcp,
 	capability net_bind_service,
+	capability setuid,
+  capability setgid,
+	capability chown,
+
 
 	deny /proc/** rw,
 	deny /home/** x,
+	owner /home/** rw,
 
 }
