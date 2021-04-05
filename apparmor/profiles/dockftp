@@ -3,17 +3,19 @@
 profile dockftp {
 	#include <abstractions/base>
 	
-	
+	umount,
   file,
 	network inet tcp,
 	capability net_bind_service,
 	capability setuid,
   capability setgid,
 	capability chown,
+	capability dac_override,
+	capability sys_chroot,
 
 
 	deny /proc/** rw,
 	deny /home/** x,
-	owner /home/** rw,
+	/home/** rw,
 
 }
