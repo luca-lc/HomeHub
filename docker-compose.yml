@@ -40,6 +40,7 @@ services:
       - "8082:80"
     # security_opt:
     #   - apparmor=dockbox
+
   sql:
     build: ./SQLHub
     image: luca/sqlhub:latest
@@ -56,6 +57,7 @@ services:
   nginx:
     image: luca/nginx:latest
     build: ./nginx  
+    restart: always
     network_mode: host
     security_opt:
       - apparmor=docknginx
@@ -64,6 +66,7 @@ services:
   ftp:
     image: luca/ftphub:latest
     build: ./FTPHub
+    restart: always
     volumes:
       - /mnt/data/containers/ftp/luca:/home/luca
       - /mnt/data/containers/ftp/guest:/home/guest
@@ -75,7 +78,11 @@ services:
 
 
   plex:
-    image: plexinc/pms-docker:armv7
+    image: ghcr.io/linuxserver/plex
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - VERSION=docker
     volumes:
       - /mnt/data/containers/plex/database:/config
       - /mnt/data/containers/plex/transcode:/transcode
