@@ -22,4 +22,6 @@ RUN chmod 600 /etc/nginx/ssl/*
 # copy configuration files into the image
 COPY index.html /home/www/index.html
 COPY conf/nginx.conf /etc/nginx/conf.d/default.conf
+COPY conf/nginx.conf.conf /etc/nginx/nginx.conf
 COPY 404.html /home/www/404.html
+COPY assets/home.png /home/www/home.png
