@@ -1,10 +1,10 @@
-# `PiNeBox` image
+# `BoxHub` image
 # maintainer: luca-lc
 
 # base layer OS: latest nextcloud
 FROM nextcloud:latest
 
-ADD ./config.php /config/config.php
+# ADD ./config.php /config/config.php
 
 RUN apt-get update && \
 		apt-get full-upgrade -y
@@ -17,3 +17,5 @@ RUN apt-get update && \
 # # RUN a2dismod mpm_prefork
 # # RUN a2enmod mpm_event
 # # RUN a2enmod http2
+
+ENV NEXTCLOUD_UPDATE=1
