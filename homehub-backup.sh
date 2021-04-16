@@ -4,7 +4,33 @@ d=$(date +"%d%m%y")
 sqlbk=SQLbox-backup
 databk=DATAbox-backup
 ftpbk=FTP-backup
+disklabel=
 dbname=
+
+function diskHandler()
+	{	
+		if [[ $1 == "mount" ]]; then
+			mkdir -m u=wrx,g=rx,o=rx -p /mnt/backups/ # make ifnotexists dir where disk will be mounted
+			mount -L $disklabel /mnt/backups -o umask=0022 # mount disk with permission u=rwx,g=rx,o=rx
+			if [[ $? -ne 0 ]]; then # chek if the disk is correctly mounted
+				echo -e "Problem to mount the disk\n"
+				exit -1
+			fi
+			mkdir -m 755 -p /mnt/backups/tmp # make ifnotexists the temp dir into the drive
+			echo -e "---------- DISK MOUNTED ----------\n"
+		
+		elif [[ $1 == "unmount" ]]; then
+			umount /mnt/backups # unmount disk
+			if [[ $? -ne 0 ]]; then # check if the disk is correctly unmounted
+				echo "Problem to unmount the disk"
+				exit -1
+			fi
+			echo -e "---------- DISK UNMOUNTED ----------\n"
+		
+		else
+			echo -e "---------- COMMAND UNKNOWN ----------\n" # command unknown
+		fi
+	}
 
 function maintenance()
 	{
@@ -56,6 +82,8 @@ function clean()
 
 
 if [[ "$EUID" = 0 ]]; then
+	diskHandler mount
+	echo # to create a new line
 	read -sp "insert db root's password " rootpwd
 	echo # to create a new line
 	maintenance true
@@ -71,6 +99,8 @@ if [[ "$EUID" = 0 ]]; then
 	compress
 	echo # to create a new line
 	clean
+	echo # to create a new line
+	diskHandler unmount
 	echo # to create a new line
 else
 	echo -e "It must be run as sudo"
