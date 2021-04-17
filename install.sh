@@ -33,8 +33,7 @@ if [[ "$EUID" = 0 ]]; then
 	do
 		read -p "Insert the number of the FTP users: " ftpusers # ask the number of the users
 	done 
-
-	echo ""
+	echo
 	loop=1
 	echo -e "# ftp users and their password\n" > ./FTPHub/conf/configFile.conf # reset of config file
 	while [ $loop -le $ftpusers ]
@@ -43,7 +42,7 @@ if [[ "$EUID" = 0 ]]; then
 		read -p "Insert $loop password: " upwd
 		echo -e "uname$loop=$uname\nupass$loop=$upwd\n\n" >> ./FTPHub/conf/configFile.conf # append data in config file
 		((loop=loop+1))
-		echo ""
+		echo
 	done
 	echo -e "nusers=$ftpusers" >> ./FTPHub/conf/configFile.conf
 	
