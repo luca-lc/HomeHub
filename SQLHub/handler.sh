@@ -29,7 +29,7 @@ function usage( )
 	{
 		echo -e "Usage: $0 [OPTION]"
 		echo
-		echo -e "'handlare' helps to manage the database."
+		echo -e "'handler' helps to manage the database."
 		echo -e "By default the host is 'localhost'"
 		echo 
 		echo -e "It requires one of the following OPTIONS\n"
@@ -72,7 +72,6 @@ function userDB( )
 		getVar
 
 		query="GRANT ALL ON ${database}.* TO '${user}'@'${host}';FLUSH PRIVILEGES;"
-
 	}
 
 
