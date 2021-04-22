@@ -69,15 +69,6 @@ At image building time, the system uses the custom _root_ password saved in the 
 ROOT_PSWD=<root password>
 ```
 
-<u>waiting for a fixing update</u>:<br/>
-To improve the security it's recommended to clean the `MYSQL_ROOT_PASSWORD` variable 	from container shell using this command:
-
-```
-$ sudo docker exec -it <container-name> /bin/bash #to access the container from host
-
-$ MYSQL_ROOT_PASSWORD='' #launch it insde the container to clean the variable
-```
-
 ### BoxHub
 
 <br/>
@@ -155,6 +146,15 @@ The possible handler options are
 ```
 
 An advice for a safer service is use for each new database a new user.
+
+<u>waiting for a fixing update</u>:<br/>
+To improve the security it's recommended to clean the `MYSQL_ROOT_PASSWORD` variable 	from container shell using this command:
+
+```
+$ sudo docker exec -it <container-name> /bin/bash #to access the container from host
+
+$ MYSQL_ROOT_PASSWORD='' #launch it insde the container to clean the variable
+```
 
 ### BoxHub
 
