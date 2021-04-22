@@ -30,7 +30,7 @@ function usage( )
 		echo -e "Usage: $0 [OPTION]"
 		echo
 		echo -e "'handler' helps to manage the database."
-		echo -e "By default the host is 'localhost'"
+		echo -e "By default the host is '$host'"
 		echo 
 		echo -e "It requires one of the following OPTIONS\n"
 		echo -e " -nu\t: to create a new user for an already exisiting database"
