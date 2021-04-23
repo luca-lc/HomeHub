@@ -33,7 +33,7 @@ function usage( )
 		echo -e "By default the host is '$host'"
 		echo 
 		echo -e "It requires one of the following OPTIONS\n"
-		echo -e " -nu\t: to create a new user for an already exisiting database"
+		echo -e " -nu\t: to create a new user for an already existing database"
 		echo -e " -nd\t: to create a new database for an already existing user"
 		echo -e " -nn\t: to create a new database and its admin user"
 		echo -e " -ud\t: to assign an already existing user to an already existing database"

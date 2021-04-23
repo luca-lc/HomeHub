@@ -56,13 +56,13 @@ All containers based on `HTTP` protocol are accessible using a **ReverseProxy** 
 ### _FTPHub_
 
 The FTPHub is based on `vsftpd` engine. At the image building time, the system copies the configuration files and the configuration script into the container.<br/>
-Into `vsftpd.conf` configuration file are setted the environment variables, like the writing permissions, users list and `chroot` to restrict users to thier home directory.<br/>
+Into `vsftpd.conf` configuration file are set the environment variables, like the writing permissions, users list and `chroot` to restrict users to their home directory.<br/>
 Instead, into the `configFile.conf` there are the users name and users password required to configure the entire system through `config.sh` script launched at building time.<br/>
 In the `vsftpd.userlist` there is a list of registered users with permission to use this service. This file is useful if you want to disable a user from logging in.
 
 ### _SQLHub_
 
-SQLHub is a relational database management system based on `mariadb` engine. SQLHub is used by all others services that require a db and communicate with it through underlying network provided by Docker, in this way all communications stay into the system and are not visible from outside and more important the DBMS cannot be reached directly from outside the host system. <br/>
+SQLHub is a relational database management system based on `mariadb` engine. SQLHub is used by all others services that need a db and communicate with it through underlying network provided by Docker, in this way all communications stay into the system and are not visible from outside and more important the DBMS cannot be reached directly from outside the host system. <br/>
 At image building time, the system uses the custom _root_ password saved in the `.env` file otherwise it creates the _root_ account with the temp password written into the Dockerfile.<br/> `.env` has to be created before to run the building process and the variable has to be written using this syntax:
 
 ```
@@ -86,9 +86,9 @@ $ sudo /path/to/proj/install.sh
 It requires a root capabilities so it can be run from standard Linux user using `sudo` command or directly as *root* user.
 
 It provides to install and update the firewalls for all services opening the needed ports and installing the *AppArmor* profiles.
-Then, asks to user to insert the number of accounts, their names and passwords to use in FTPHub. After insertion it requires to user to check the accounts correctness.
+Then, asks the user to insert the accounts number, their names and passwords to use in FTPHub. After insertion it requires to user to check the accounts correctness.
 
-To complete the installation, the process asks to user if the *[docker-compose.yml](https://github.com/luca-lc/HomeHub/blob/master/docker-compose.yml)* is complete and correct and if you want to start the services after the installation.
+To complete the installation, the process asks the user if the *[docker-compose.yml](https://github.com/luca-lc/HomeHub/blob/master/docker-compose.yml)* is complete and correct and if you want to start the services after the installation.
 
 At the end it cleans the environment and shows the status of services.
 
@@ -99,7 +99,7 @@ To build the services it can be done using a simple command:
 ```
 $ sudo docker-compose up --build -d
 ```
-It compiles the services and start them in detached mode, obviously, it needs the root capabilitites.
+It compiles the services and start them in detached mode, obviously, it needs the root capabilities.
 
 Before to run it, you need to create the `FTPHub/conf/configFile.conf` with the accounts' names and passwords like this:
 ```
@@ -138,7 +138,7 @@ $ sudo docker exec -it <container-name> /handler.sh -<option>
 The possible handler options are
 
 ```
--nu: to create a new user for an already exisiting database
+-nu: to create a new user for an already existing database
 -nd: to create a new database for an already existing user
 -nn: to create a new database and its admin user
 -ud: to assign an already existing user to an already existing database
